@@ -16,8 +16,8 @@ const Nav = ({search,setSearch}) => {
         </form>
         <ul>
           <li><Link to="/">HOME </Link></li>
-          <li><Link to="/post">POST </Link></li>
-          <li><Link to="/about">ABOUT </Link></li>
+          <li><Link to="post">POST </Link></li>
+          <li><Link to="about">ABOUT </Link></li>
         </ul>
     </nav>
 
