@@ -44,6 +44,15 @@ function App() {
   const [postbody,setPostBody]=useState('')
   const history = useHistory()
 
+  useEffect(()=>{
+     const filteredresults = posts.filter((post)=>
+        ((post.body).toLowerCase()).includes(search.toLowerCase())
+     || ((post.title).toLowerCase()).includes(search.toLowerCase()) )
+
+     setSearchResults(filteredresults.reverse())
+  },[posts,search])
+
+
   const handleDelete = (id) =>{
     const postslist = posts.filter(post=>post.id !== id)
     setPosts(postslist)
@@ -70,7 +79,7 @@ function App() {
       <Switch>
 
           <Route exact  path="/">
-            <Home posts={posts}/>
+            <Home posts={searchResults}/>
           </Route>
              
           <Route exact path="/post">
