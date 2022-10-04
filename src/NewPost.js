@@ -11,17 +11,17 @@ const NewPost = ({handleSubmit,postTitle,setPostTitle,postbody,setPostBody}) => 
                 type="text"
                 required
                 value={postTitle}
-                onChange={(e)=>setPostTitle(e.preventDefault())}
+                onChange={(e)=>setPostTitle(e.target.value)}
                 />
-                <label htmlFor='postBody'>Title:</label>
+                <label htmlFor='postBody'>Post:</label>
                 <textarea 
                 id="postBody"
                 required
                 value={postbody}
-                onChange={(e)=>setPostBody(e.preventDefault())}
+                onChange={(e)=>setPostBody(e.target.value)}
                 >
                 </textarea>
-                <button type='submit'>Submiit</button>
+                <button type='submit'>Submit</button>
         </form>
     </main>
 
