@@ -10,8 +10,7 @@ import Footer from './Footer';
 import Home from './Home'
 
 function App() {
-  const [search,setSearch] = useState("")
-  const [searchResults,setSearchResults] = useState([])
+  
   const [posts,setPosts] = useState([
     {
       id: 1,
@@ -38,12 +37,28 @@ function App() {
       body: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Quis consequatur expedita, assumenda similique non optio! Modi nesciunt excepturi corrupti atque blanditiis quo nobis, non optio quae possimus illum exercitationem ipsa!"
     }
   ])
+  const [search,setSearch] = useState("")
+  const [searchResults,setSearchResults] = useState([])
+  const [postTitle,setPostTitle]=useState('')
+  const [postbody,setPostBody]=useState('')
   const history = useHistory()
+
   const handleDelete = (id) =>{
     const postslist = posts.filter(post=>post.id !== id)
     setPosts(postslist)
     history.push('/')
   }
+
+  const handleSubmit = () =>{
+    
+  }
+
+
+
+
+
+
+
   return (
     <div className="App">
       <Header title={"React Js Blog"}></Header>
@@ -56,7 +71,13 @@ function App() {
           </Route>
              
           <Route exact path="/post">
-              <NewPost/>
+              <NewPost 
+                 handleSubmit={handleSubmit}
+                 postTitle={postTitle}
+                 setPostTitle={setPostTitle}
+                 postbody={postbody}
+                 setPostBody={setPostBody}
+              />
           </Route>
 
           <Route path="/post/:id">
