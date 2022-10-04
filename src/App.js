@@ -8,6 +8,7 @@ import Missing from './Missing';
 import About from './About';
 import Footer from './Footer';
 import Home from './Home'
+import {format} from "date-fns"
 
 function App() {
   
@@ -49,15 +50,17 @@ function App() {
     history.push('/')
   }
 
-  const handleSubmit = () =>{
-    
+  const handleSubmit = (e) =>{
+    e.preventDefault();
+    const id = posts.length ? posts[posts.length-1].id + 1 :1
+    const datetime = format(new Date(),"MMMM dd,yyyy pp");
+    const newpost = {id,title: postTitle,datetime,body:postbody}
+    const allpost = [...posts,newpost ]
+    setPosts(allpost)
+    setPostTitle("")
+    setPostBody("")
+    history.push('/')
   }
-
-
-
-
-
-
 
   return (
     <div className="App">
