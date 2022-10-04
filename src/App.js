@@ -12,7 +12,7 @@ import Home from './Home'
 function App() {
   return (
     <div className="App">
-      <Header></Header>
+      <Header title={"React Js Blog"}></Header>
       <Nav></Nav>
 
       <Switch>
