@@ -38,6 +38,9 @@ function App() {
       body: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Quis consequatur expedita, assumenda similique non optio! Modi nesciunt excepturi corrupti atque blanditiis quo nobis, non optio quae possimus illum exercitationem ipsa!"
     }
   ])
+  const handleDelete = (id) =>{
+    
+  }
   return (
     <div className="App">
       <Header title={"React Js Blog"}></Header>
@@ -54,7 +57,7 @@ function App() {
           </Route>
 
           <Route path="/post/:id">
-              <PostPage/>
+              <PostPage posts={posts} handleDelete={handleDelete}/>
           </Route>
           
           <Route path="/about" component={About}/>
