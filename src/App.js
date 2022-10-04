@@ -38,8 +38,11 @@ function App() {
       body: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Quis consequatur expedita, assumenda similique non optio! Modi nesciunt excepturi corrupti atque blanditiis quo nobis, non optio quae possimus illum exercitationem ipsa!"
     }
   ])
+  const history = useHistory()
   const handleDelete = (id) =>{
-    
+    const postslist = posts.filter(post=>post.id !== id)
+    setPosts(postslist)
+    history.push('/')
   }
   return (
     <div className="App">
