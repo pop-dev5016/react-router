@@ -46,8 +46,6 @@ function App() {
           }
       }
     }
-
-
     fetchposts()
   },[])
 
@@ -56,10 +54,15 @@ function App() {
 
 
 
-  const handleDelete = (id) =>{
+  const handleDelete = async (id) =>{
+    try{
+      await Api.delete(`/posts/${id}`)
     const postslist = posts.filter(post=>post.id !== id)
     setPosts(postslist)
     navigate.push('/')
+    }catch(err){
+      console.log(`Error:${err.message}`);
+    }
   }
 
   const handleSubmit = async (e) =>{
