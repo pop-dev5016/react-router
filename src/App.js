@@ -7,7 +7,7 @@ import Missing from './Missing';
 import About from './About';
 import Home from './Home'
 import {format} from "date-fns"
-import Api from './Api/posts'
+import api from './Api/posts'
 import Editposts from './Editposts';
 
 function App() {
@@ -18,7 +18,7 @@ function App() {
   const [postTitle,setPostTitle]=useState('')
   const [postbody,setPostBody]=useState('')
   const [editTitle,setEditTitle]=useState('')
-  const [editbody,setEditBody]=useState('')
+  const [editBody,setEditBody]=useState('')
   const navigate = useNavigate()
 
   useEffect(()=>{
@@ -33,7 +33,7 @@ function App() {
   useEffect(()=>{
     const fetchposts = async ()=>{
       try{
-        const response = await Api.get('/posts')
+        const response = await api.get('/posts')
         setPosts(response.data)
       }catch (err){
           //not in 200 range
@@ -52,13 +52,13 @@ function App() {
 
   const handleEdit = async (id) => {
     const datetime = format(new Date(),"MMMM dd,yyyy pp");
-    const updatedpost = {id,title: editTitle,datetime,body:editbody}
+    const updatedpost = {id,title: editTitle,datetime,body:editBody}
     try{
-       const response = await Api.put(`/posts/${id}`,updatedpost);
-       setPosts(posts.map(post=>post.id ===id ? {...response.data}:post))
-       setEditTitle('');
-       setEditBody('');
-       navigate('/');
+       const response = await api.put(`/posts/${id}`,updatedpost);
+       setPosts(posts.map(post=>post.id === id ? {...response.data}:post))
+       setEditTitle('')
+       setEditBody('')
+       navigate('/')
     }catch(err){
       console.log(`Error:${err.message}`);
     }
@@ -66,7 +66,7 @@ function App() {
 
   const handleDelete = async (id) =>{
     try{
-      await Api.delete(`/posts/${id}`)
+      await api.delete(`/posts/${id}`)
     const postslist = posts.filter(post=>post.id !== id)
     setPosts(postslist)
     navigate('/')
@@ -81,7 +81,7 @@ function App() {
     const datetime = format(new Date(),"MMMM dd,yyyy pp");
     const newpost = {id,title: postTitle,datetime,body:postbody}
     try {
-    const response = await Api.post("/posts",newpost)
+    const response = await api.post("/posts",newpost)
     const allpost = [...posts,response.data]
     setPosts(allpost)
     setPostTitle("")
@@ -104,7 +104,19 @@ function App() {
 
 
 
-                          <Route  index element = {<Home posts={searchResults}/>}/>  
+                          <Route  index element = {<Home posts={searchResults}/>}/> 
+
+                          <Route path = "edit" >
+                            
+                          <Route path=":id" element ={<Editposts 
+                                      posts={posts}
+                                      handleEdit={handleEdit}
+                                      editBody={editBody}
+                                      setEditBody={setEditBody}
+                                      editTitle={editTitle}
+                                      setEditTitle={setEditTitle}
+                                    />}/>
+                          </Route>
 
                           <Route path = "post">
                           
@@ -116,16 +128,7 @@ function App() {
                                       setPostBody={setPostBody}
                                     />}/>
 
-                                    <Route  index element ={<Editposts 
-                                      post={posts}
-                                      handleEdit={handleEdit}
-                                      editTitle={editTitle}
-                                      setEditTitle={setEditTitle}
-                                      editbody={editbody}
-                                      setEditBody={setEditBody}
-                                      
-                                    />}/>
-
+                                  
                                   <Route path=":id" element = {<PostPage
                                   posts={posts} 
                                   handleDelete={handleDelete}
