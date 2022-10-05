@@ -30,6 +30,32 @@ function App() {
   },[posts,search])
 
 
+  useEffect(()=>{
+    const fetchposts = async ()=>{
+      try{
+        const response = await Api.get('/posts')
+        setPosts(response.data)
+      }catch (err){
+          //not in 200 range
+          if(err.response) {
+          console.log(err.response.data);
+          console.log(err.response.status);
+          console.log(err.response.headers);
+          }else{
+            console.log(`Error:${err.message}`);
+          }
+      }
+    }
+
+
+    fetchposts()
+  },[])
+
+
+
+
+
+
   const handleDelete = (id) =>{
     const postslist = posts.filter(post=>post.id !== id)
     setPosts(postslist)
