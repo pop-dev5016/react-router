@@ -19,6 +19,8 @@ function App() {
   const [searchResults,setSearchResults] = useState([])
   const [postTitle,setPostTitle]=useState('')
   const [postbody,setPostBody]=useState('')
+  const [editTitle,setEditTitle]=useState('')
+  const [editbody,setEditBody]=useState('')
   const navigate = useNavigate()
 
   useEffect(()=>{
@@ -48,6 +50,21 @@ function App() {
     }
     fetchposts()
   },[])
+
+
+  const handleEdit = async (id) => {
+    const datetime = format(new Date(),"MMMM dd,yyyy pp");
+    const updatedpost = {id,title: editTitle,datetime,body:editbody}
+    try{
+       const response = await Api.put(`/posts/${id}`,updatedpost);
+       setPosts(posts.map(post=>post.id ===id ? {...response.data}:post))
+       setEditTitle('');
+       setEditBody('');
+       navigate.push('/');
+    }catch(err){
+      console.log(`Error:${err.message}`);
+    }
+  }
 
 
 
