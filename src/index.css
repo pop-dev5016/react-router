@@ -201,8 +201,8 @@ body {
   cursor: pointer;
 }
 
-.Missing h2, .PostPage h2, 
-.Missing p, .PostPage p {
+
+.Missing p, .PostPage p,.NewPost p {
   margin-bottom: 1rem;
 }
 

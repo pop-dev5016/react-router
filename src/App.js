@@ -1,13 +1,10 @@
-import Header from './Header';
 import Layout from './Layout';
 import {Route,Routes,useNavigate} from 'react-router-dom'
 import {useState,useEffect} from 'react'
-import Nav from './Nav';
 import NewPost from './NewPost';
 import PostPage from './PostPage';
 import Missing from './Missing';
 import About from './About';
-import Footer from './Footer';
 import Home from './Home'
 import {format} from "date-fns"
 import Api from './Api/posts'
@@ -61,23 +58,18 @@ function App() {
        setPosts(posts.map(post=>post.id ===id ? {...response.data}:post))
        setEditTitle('');
        setEditBody('');
-       navigate.push('/');
+       navigate('/');
     }catch(err){
       console.log(`Error:${err.message}`);
     }
   }
-
-
-
-
-
 
   const handleDelete = async (id) =>{
     try{
       await Api.delete(`/posts/${id}`)
     const postslist = posts.filter(post=>post.id !== id)
     setPosts(postslist)
-    navigate.push('/')
+    navigate('/')
     }catch(err){
       console.log(`Error:${err.message}`);
     }
@@ -94,7 +86,7 @@ function App() {
     setPosts(allpost)
     setPostTitle("")
     setPostBody("")
-    navigate.push('/')
+    navigate('/')
     }catch(err){
       console.log(`Error:${err.message}`);
     }
