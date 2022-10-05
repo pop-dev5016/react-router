@@ -11,6 +11,7 @@ import Footer from './Footer';
 import Home from './Home'
 import {format} from "date-fns"
 import Api from './Api/posts'
+import Editposts from './Editposts';
 
 function App() {
   
@@ -121,6 +122,16 @@ function App() {
                                       setPostTitle={setPostTitle}
                                       postbody={postbody}
                                       setPostBody={setPostBody}
+                                    />}/>
+
+                                    <Route  index element ={<Editposts 
+                                      post={posts}
+                                      handleEdit={handleEdit}
+                                      editTitle={editTitle}
+                                      setEditTitle={setEditTitle}
+                                      editbody={editbody}
+                                      setEditBody={setEditBody}
+                                      
                                     />}/>
 
                                   <Route path=":id" element = {<PostPage
