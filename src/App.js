@@ -10,6 +10,7 @@ import {format} from "date-fns"
 import api from './Api/posts'
 import Editposts from './Editposts';
 import useWindowssize from './Hooks/useWindowssize';
+import useAxiosFetch from './Hooks/useAxiosfetch';
 
 function App() {
   
@@ -23,6 +24,14 @@ function App() {
   const navigate = useNavigate()
   const { width } = useWindowssize()
 
+
+  const {data,fetchError,isloading} = useAxiosFetch('http://localhost:3500/posts')
+
+
+  useEffect(()=>{
+    setPosts(data)
+  },[data])
+
   useEffect(()=>{
      const filteredresults = posts.filter((post)=>
         ((post.body).toLowerCase()).includes(search.toLowerCase())
@@ -32,24 +41,24 @@ function App() {
   },[posts,search])
 
 
-  useEffect(()=>{
-    const fetchposts = async ()=>{
-      try{
-        const response = await api.get('/posts')
-        setPosts(response.data)
-      }catch (err){
-          //not in 200 range
-          if(err.response) {
-          console.log(err.response.data);
-          console.log(err.response.status);
-          console.log(err.response.headers);
-          }else{
-            console.log(`Error:${err.message}`);
-          }
-      }
-    }
-    fetchposts()
-  },[])
+  // useEffect(()=>{
+  //   const fetchposts = async ()=>{
+  //     try{
+  //       const response = await api.get('/posts')
+  //       setPosts(response.data)
+  //     }catch (err){
+  //         //not in 200 range
+  //         if(err.response) {
+  //         console.log(err.response.data);
+  //         console.log(err.response.status);
+  //         console.log(err.response.headers);
+  //         }else{
+  //           console.log(`Error:${err.message}`);
+  //         }
+  //     }
+  //   }
+  //   fetchposts()
+  // },[])
 
 
   const handleEdit = async (id) => {
@@ -107,7 +116,8 @@ function App() {
 
 
 
-                          <Route  index element = {<Home posts={searchResults}/>}/> 
+                          <Route  index element = {<Home posts={searchResults}
+                          fetchError={fetchError} isLoading={isloading}/>}/> 
 
                           <Route path = "edit" >
                             
