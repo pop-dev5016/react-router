@@ -9,6 +9,7 @@ import Home from './Home'
 import {format} from "date-fns"
 import api from './Api/posts'
 import Editposts from './Editposts';
+import useWindowssize from './Hooks/useWindowssize';
 
 function App() {
   
@@ -20,6 +21,7 @@ function App() {
   const [editTitle,setEditTitle]=useState('')
   const [editBody,setEditBody]=useState('')
   const navigate = useNavigate()
+  const { width } = useWindowssize()
 
   useEffect(()=>{
      const filteredresults = posts.filter((post)=>
@@ -100,6 +102,7 @@ function App() {
           <Route  path="/" element={<Layout
                           search={search}
                           setSearch={setSearch}
+                          width={width}
                           />}>
 
 
