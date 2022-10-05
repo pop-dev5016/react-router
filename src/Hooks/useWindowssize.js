@@ -19,11 +19,10 @@ const useWindowssize = () => {
 
       window.addEventListener("resize",handleResize)
 
-      const cleanUp = ()=>{
-        console.log("runs if a useeffect dep changes");
-        window.removeEventListener("resize",handleResize)
-      }
-      return cleanUp
+
+      return ()=>window.removeEventListener("resize",handleResize)
+
+
     },[])
 
     return windowssize
