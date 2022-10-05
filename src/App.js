@@ -10,6 +10,7 @@ import About from './About';
 import Footer from './Footer';
 import Home from './Home'
 import {format} from "date-fns"
+import Api from './Api/posts'
 
 function App() {
   
