@@ -11,6 +11,7 @@ import api from './Api/posts'
 import Editposts from './Editposts';
 import useWindowssize from './Hooks/useWindowssize';
 import useAxiosFetch from './Hooks/useAxiosfetch';
+import { DataProvider } from './Context/DataContext';
 
 function App() {
   
@@ -105,9 +106,11 @@ function App() {
 
   return (
     
+        
+    <DataProvider>
 
       <Routes>
-
+           
           <Route  path="/" element={<Layout
                           search={search}
                           setSearch={setSearch}
@@ -156,6 +159,9 @@ function App() {
           </Route>
 
       </Routes>
+
+
+      </DataProvider>
 
      
 
